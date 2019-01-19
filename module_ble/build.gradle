@@ -1,0 +1,65 @@
+if (isBuildAsModule.toBoolean()) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
+}
+
+android {
+    compileSdkVersion build_versions.target_sdk
+    buildToolsVersion build_versions.build_tools
+
+    defaultConfig {
+        applicationId "com.laputa.zeejp.module_ble"
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+    lintOptions {
+        abortOnError false
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        main {
+            if (isBuildAsModule.toBoolean()) {
+                manifest.srcFile("src/main/module/androidManifest.xml")
+            } else {
+                manifest.srcFile("src/main/androidManifest.xml")
+                java {
+                    exclude 'debug/**' // 如果是library状态，就不使用debug下面的文件
+                }
+
+            }
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/proguard/androidx-annotations.pro'
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api project(':lib_mvvm')
+    implementation "com.polidea.rxandroidble2:rxandroidble:1.8.0"
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
+    implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
+    implementation 'com.jakewharton.rx2:replaying-share:2.1.0'
+}

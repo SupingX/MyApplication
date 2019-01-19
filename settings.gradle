@@ -1,0 +1,1 @@
+include ':app', ':lib_basic', ':lib_common', ':lib_resource', ':module_login', ':lib_mvvm', ':lib_download', ':module_ble', ':module_kotlin', ':module_kotlin'

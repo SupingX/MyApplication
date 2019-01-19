@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".mvp.view.LoginActivity">
+
+        <EditText
+            android:id="@+id/et_focus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_login" />
+
+        <LinearLayout
+            android:padding="20dp"
+            android:id="@+id/ll_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_u"
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:hint="用户名"
+                    android:singleLine="true"
+                    android:textColor="@color/module_login_color_text_login" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                app:hintAnimationEnabled="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <EditText
+
+                    android:inputType="textPassword"
+                    android:id="@+id/et_p"
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:hint="密码"
+                    android:singleLine="true"
+                    android:textColor="@color/module_login_color_text_login" />
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_l"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:onClick="onClick"
+                android:gravity="center"
+                android:text="@string/module_login_str_login" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/id_uc_news_header_pager"
+            android:layout_above="@id/ll_login"
+            android:padding="20dp"
+            android:layout_margin="20dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="@android:color/background_dark"
+                android:text="Some times ever,some times never."
+                android:gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginTop="10dp"
+                android:textColor="@android:color/background_dark"
+                android:text="相聚有时，后会无期。"
+                android:gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

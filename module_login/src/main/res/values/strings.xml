@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">module_login</string>
+    <string name="module_login_str_login">登 录</string>
+</resources>
