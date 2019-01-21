@@ -19,6 +19,7 @@ versions.arch = "1.1.0" // lifecycle
 versions.rx_rxrelay = "2.1.0" // 大神
 
 versions.kotlin_version = "1.2.30"
+versions.kotlin_anko_version = "0.8.2"
 
 
 
@@ -48,6 +49,7 @@ def kotlins = [:]
 kotlins.kotlin_gradle_plugin="org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin_version"
 kotlins.kotlin_stdlib_jre7="org.jetbrains.kotlin:kotlin-stdlib-jre7:$versions.kotlin_version"
 kotlins.test = "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlin_version"
+kotlins.anko = "org.jetbrains.anko:anko-common:$versions.kotlin_anko_version"
 deps.kotlins = kotlins
 
 def support = [:]
