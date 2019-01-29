@@ -189,6 +189,18 @@ public interface ApiService {
             , @Field("accessKey") @NonNull String accessKey
     );
 
+    @FormUrlEncoded
+    @POST("/web/api/app/user/login")
+    Observable<HttpResult<Object>> loginObs(
+            @Field("phone") @NonNull String phone
+            , @Field("password") @NonNull String password
+            , @Field("appType") @NonNull Integer appType
+            , @Field("appVersion") @NonNull String appVersion
+            , @Field("longitude") @NonNull String longitude
+            , @Field("latitude") @NonNull String latitude
+            , @Field("accessKey") @NonNull String accessKey
+    );
+
     int TYPE_ANDROID = 1;
     int TYPE_IOS = 2;
 

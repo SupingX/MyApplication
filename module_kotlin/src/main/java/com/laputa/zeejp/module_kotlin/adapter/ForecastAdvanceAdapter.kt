@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import com.laputa.zeejp.module_kotlin.R
+import com.laputa.zeejp.module_kotlin.domain.model.Forecast
 import com.laputa.zeejp.module_kotlin.domain.model.ForecastList
 import kotlinx.android.synthetic.main.item_forecast.view.*
 
@@ -15,15 +16,20 @@ class ForecastAdvanceAdapter(val weekForecast: ForecastList) : RecyclerView.Adap
         return ForecastAdvanceAdapter.ViewHolder(view.tv_text)
     }
 
-
-    override fun getItemCount(): Int = weekForecast.dailyForecast.size
+    //    override fun getItemCount(): Int = weekForecast.dailyForecast.size
+    override fun getItemCount() = size()
 
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
-        with(weekForecast.dailyForecast[p1]) {
+        with(get(p1)){
+//            with(weekForecast.dailyForecast[p1]) {
             p0.textView.text = "$date - $description - $high/$low "
             p0.textView.setTextColor(Color.RED)
         }
     }
+
+    operator fun get(position: Int): Forecast = weekForecast.dailyForecast[position]
+
+    fun size() = weekForecast.dailyForecast.size
 
     class ViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
 }

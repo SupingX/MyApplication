@@ -7,9 +7,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
+
+import org.reactivestreams.Subscription;
 
 public abstract class BaseActivity<V extends ViewDataBinding> extends AppCompatActivity {
     protected V mViewDataBing;
@@ -75,4 +79,6 @@ public abstract class BaseActivity<V extends ViewDataBinding> extends AppCompatA
             tintManager.setStatusBarTintColor(setStatusBarColor());*/
         }
     }
+
+
 }

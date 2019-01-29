@@ -1,11 +1,15 @@
 package com.laputa.zeejp.lib_common.rx;
 
+import com.laputa.zeejp.lib_common.R;
 import com.laputa.zeejp.lib_common.http.excption.ApiException;
 import com.laputa.zeejp.lib_common.http.response.HttpResult;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableTransformer;
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.ObservableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -61,8 +65,28 @@ public class RxHelper {
                                 return Flowable.error(e);
                             }
                         }
-                )
-                .compose(rxSchedulerHelper());
+                );
+                //.compose(rxSchedulerHelper());
+    }
+
+    public static <T> ObservableTransformer<HttpResult<T>, Boolean> parseDataForBoolean2() {
+        return upstream -> upstream
+                .flatMap(new Function<HttpResult<T>, Observable<Boolean>>() {
+                    @Override
+                    public Observable<Boolean> apply(HttpResult<T> tHttpResult) throws Exception {
+                        try {
+                            if (tHttpResult.isSuccess()) {
+                                return Observable.just(true);
+                            } else {
+                                ApiException apiException = new ApiException(tHttpResult.getCode(), tHttpResult.getMsg());
+                                return Observable.error(apiException);
+                            }
+                        } catch (Exception e) {
+                            return Observable.error(e);
+                        }
+                    }
+                });
+        //.compose(rxSchedulerHelper());
     }
 
     /**

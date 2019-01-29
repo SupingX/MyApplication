@@ -83,6 +83,10 @@ dependencies {
     api deps.okhttp.okhttp3
     api deps.okhttp.okhttp3_logging_interceptor
 
+    // Glide
+    api deps.glide.glide_api
+    annotationProcessor deps.glide.glide_compiler
+
     /* * * third open source end * * */
 
 }

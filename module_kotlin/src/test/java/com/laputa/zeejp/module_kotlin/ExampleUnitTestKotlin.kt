@@ -1,12 +1,12 @@
 package com.laputa.zeejp.module_kotlin
 
 import com.laputa.zeejp.module_kotlin.entity.data.Coordinates
-import com.laputa.zeejp.module_kotlin.entity.data.Forecast
 import com.laputa.zeejp.module_kotlin.test.lession_1.Animal
 import com.laputa.zeejp.module_kotlin.test.lession_1.Persion
 import com.laputa.zeejp.module_kotlin.test.lession_2.Book
 import com.laputa.zeejp.module_kotlin.entity.data.ForecastTest
 import com.laputa.zeejp.module_kotlin.test.lession_2.myClip
+import com.laputa.zeejp.module_kotlin.util.supportsLollipop
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -115,7 +115,113 @@ class ExampleUnitTestKotlin {
 
     }
 
+    @Test
+    fun lesson_3() {
+        val TAG = "lesson_3"
+
+        // 扩展函数
+
+        // lambda
+//        testLambda { hello ->
+//            log("testLambda : $hello lambda", TAG)
+//        }
+
+        // 使用的时候
+        testLambda({ hello ->test(hello) })
+
+        // 内联函数
+        supportsLollipop {
+            log("", "supportsLollipop")
+            add(1, 2)
+        }
+
+
+    }
+
+    private fun test(hello: String): String {
+        log("testLambda : $hello lambda", "lesson_3")
+        return "haha"
+    }
+
+    @Test
+    fun lesson_4() {
+        doWhat { hello() }
+        doWhat { hello("leng") }
+        doWhat { hello("leng", "leng") }
+
+        doLove ({
+            love("leng", "leng")
+        })
+
+        doLove2 ({ name, nick -> love(name, nick) })
+    }
+
+    fun hello() {
+        System.out.println("hello1 leng")
+    }
+
+    fun hello(name: String) {
+        System.out.println("hello2 $name")
+    }
+
+    fun hello(name: String, nick: String) {
+        System.out.println("hello3 $name - $nick")
+    }
+
+    fun love(name: String, nick: String): Int {
+        System.out.println("hello4 $name - $nick")
+        return 520
+    }
+
+    fun doWhat(what: () -> Unit) {
+        what()
+    }
+
+    fun doLove(love: () -> Int) {
+        val love1 = love()
+        System.out.println("just doLove $love1")
+    }
+
+    fun doLove2(love: (name: String, nick: String) -> Int) {
+        val name = "leng"
+        val nick = "leng"
+        val love1 = love(name, nick)
+        System.out.println("just doLove2 $love1")
+    }
+
+
+    fun add(x: Int, y: Int): Int = x + y
+
     fun log(msg: String, tag: String) {
         System.out.println("[$tag] $msg")
+    }
+
+    // 函数里面加入参数
+    private fun testLambda(funcResult: (String) -> String) {
+        //val funcResult1: Int = funcResult("hello world")
+        val funcResult1 = funcResult("hello world")
+        log("result = {$funcResult1+1} ", "lesson_3")
+    }
+
+
+    private fun setCallBack(call: TestInterface) {
+        val index = call.index(1)
+        log("index=$index", "lesson_3")
+    }
+
+    public interface TestInterface {
+        fun index(id: Int): String
+    }
+
+    @Test
+    public fun lesson_05(){
+        // 85
+        // Kotlin Android Extensions
+        // classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
+
+        // import kotlinx.android.synthetic.activity_main.*
+        // import kotlinx.android.synthetic.content_main.*
+        // import kotlinx.android.synthetic.view_item.view.*
+
     }
 }

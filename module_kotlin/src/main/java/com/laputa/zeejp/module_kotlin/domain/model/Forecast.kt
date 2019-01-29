@@ -6,4 +6,5 @@ data class Forecast
         , val description: String
         , val high: Int
         , val low: Int
+        , val icon: String
 )

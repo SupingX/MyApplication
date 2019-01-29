@@ -3,16 +3,19 @@ package com.laputa.zeejp.module_kotlin
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import androidx.annotation.UiThread
 import com.laputa.zeejp.module_kotlin.adapter.ForecastAdapter
+import com.laputa.zeejp.module_kotlin.adapter.ForecastAdvance03Adapter
+import com.laputa.zeejp.module_kotlin.adapter.ForecastAdvance04Adapter
 import com.laputa.zeejp.module_kotlin.adapter.ForecastAdvanceAdapter
 import com.laputa.zeejp.module_kotlin.domain.RequestForecastCommand
+import com.laputa.zeejp.module_kotlin.domain.interfaces.OnItemClickListener
+import com.laputa.zeejp.module_kotlin.domain.model.Forecast
 import com.laputa.zeejp.module_kotlin.test.lession_1.Animal
 import com.laputa.zeejp.module_kotlin.test.lession_1.Any
 import com.laputa.zeejp.module_kotlin.test.lession_2.Request
 import com.laputa.zeejp.module_kotlin.test.lession_2.mytext
-import com.laputa.zeejp.module_kotlin.test.lession_2.mytoast
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.*
 
@@ -51,7 +54,11 @@ class MainActivity : AppCompatActivity() {
         click.setOnClickListener {
             //getWeather()
 
-            getWeatherAdvance()
+            //getWeatherAdvance()
+
+            //getWeatherAdvance03()
+
+            view->getWeatherAdvance04()
         }
 
     }
@@ -61,11 +68,56 @@ class MainActivity : AppCompatActivity() {
             val result = RequestForecastCommand("94043").execute()
             uiThread {
                 recycler.adapter = ForecastAdvanceAdapter(result)
-                //(recycler.adapter as ForecastAdvanceAdapter).notifyDataSetChanged()
             }
         }
 
     }
+
+    private fun getWeatherAdvance03() {
+        async {
+            val result = RequestForecastCommand("94043").execute()
+            uiThread {
+                recycler.adapter = ForecastAdvance03Adapter(
+                        result,
+                        object : OnItemClickListener {
+                            override fun invoke(forecast: Forecast) {
+                                toast(forecast.toString())
+                            }
+                        }
+                )
+            }
+        }
+    }
+
+
+
+    private fun getWeatherAdvance04() {
+
+
+
+        val asyncResult = asyncResult {
+
+        }
+
+
+        val async = async {
+            val result = RequestForecastCommand("94043").execute()
+            uiThread {
+                // 写在参数外面
+                recycler.adapter = ForecastAdvance04Adapter(result) { forecast ->
+                    toast(forecast.toString())
+                }
+
+                // 写在参数里面
+                /*  recycler.adapter = ForecastAdvance04Adapter(result, { forecast ->
+                      toast(forecast.toString())
+                  })*/
+
+
+            }
+        }
+    }
+
 
     private fun getWeather() {
 
@@ -82,6 +134,7 @@ class MainActivity : AppCompatActivity() {
     private fun initRecyclerView() {
 
         recycler.layoutManager = LinearLayoutManager(this)
+        recycler.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         recycler.adapter = ForecastAdapter(items)
         (recycler.adapter as ForecastAdapter).notifyDataSetChanged()
     }

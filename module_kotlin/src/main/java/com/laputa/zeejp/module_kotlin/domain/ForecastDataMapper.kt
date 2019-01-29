@@ -24,8 +24,11 @@ public class ForecastDataMapper {
                 , "${it.weather[0].description} ,speed:${it.speed} "
                 , it.temp.max.toInt()
                 , it.temp.min.toInt()
+                , getIconUrl(it.weather[0].icon)
         )
     }
+
+    private fun getIconUrl(icon: String): String ="http://openweathermap.org/img/w/$icon.png"
 
     private fun convertDate(date: Long): String {
         val df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())
