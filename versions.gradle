@@ -20,7 +20,7 @@ versions.rx_rxrelay = "2.1.0" // 大神
 versions.glide = "4.8.0"
 
 versions.kotlin_version = "1.2.30"
-versions.kotlin_anko_version = "0.8.2"
+versions.kotlin_anko_version = "0.9"
 
 
 
@@ -51,6 +51,7 @@ kotlins.kotlin_gradle_plugin="org.jetbrains.kotlin:kotlin-gradle-plugin:$version
 kotlins.kotlin_stdlib_jre7="org.jetbrains.kotlin:kotlin-stdlib-jre7:$versions.kotlin_version"
 kotlins.test = "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlin_version"
 kotlins.anko = "org.jetbrains.anko:anko-common:$versions.kotlin_anko_version"
+kotlins.anko_sqlite = "org.jetbrains.anko:anko-sqlite:$versions.kotlin_anko_version"
 deps.kotlins = kotlins
 
 def support = [:]

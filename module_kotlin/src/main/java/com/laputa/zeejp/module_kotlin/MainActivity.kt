@@ -18,6 +18,8 @@ import com.laputa.zeejp.module_kotlin.test.lession_2.Request
 import com.laputa.zeejp.module_kotlin.test.lession_2.mytext
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.*
+import org.jetbrains.anko.custom.async
+import org.jetbrains.anko.custom.asyncResult
 
 class MainActivity : AppCompatActivity() {
     private val items = listOf(

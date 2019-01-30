@@ -6,11 +6,14 @@ import com.laputa.zeejp.module_kotlin.test.lession_1.Persion
 import com.laputa.zeejp.module_kotlin.test.lession_2.Book
 import com.laputa.zeejp.module_kotlin.entity.data.ForecastTest
 import com.laputa.zeejp.module_kotlin.test.lession_2.myClip
+import com.laputa.zeejp.module_kotlin.test.lesson_5.Configuration
 import com.laputa.zeejp.module_kotlin.util.supportsLollipop
+import org.jetbrains.anko.collections.forEachWithIndex
 import org.junit.Test
 
 import org.junit.Assert.*
 import java.util.*
+import kotlin.properties.ReadWriteProperty
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -127,7 +130,7 @@ class ExampleUnitTestKotlin {
 //        }
 
         // 使用的时候
-        testLambda({ hello ->test(hello) })
+        testLambda({ hello -> test(hello) })
 
         // 内联函数
         supportsLollipop {
@@ -149,11 +152,11 @@ class ExampleUnitTestKotlin {
         doWhat { hello("leng") }
         doWhat { hello("leng", "leng") }
 
-        doLove ({
+        doLove({
             love("leng", "leng")
         })
 
-        doLove2 ({ name, nick -> love(name, nick) })
+        doLove2({ name, nick -> love(name, nick) })
     }
 
     fun hello() {
@@ -214,7 +217,7 @@ class ExampleUnitTestKotlin {
     }
 
     @Test
-    public fun lesson_05(){
+    public fun lesson_05() {
         // 85
         // Kotlin Android Extensions
         // classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
@@ -223,5 +226,114 @@ class ExampleUnitTestKotlin {
         // import kotlinx.android.synthetic.content_main.*
         // import kotlinx.android.synthetic.view_item.view.*
 
+        // 单例
+        // 委托属性
+        // lazy observable vetoable notnull 只能被赋值一次，第二次赋值，抛异常
+        // 从Map中映射
+        val config = Configuration(mapOf(
+                "width" to 1080
+                , "height" to 720
+                , "dp" to 240
+                , "deviceName" to "myDevice"
+
+        ))
+        log("config:${config.deviceName}", "lesson_05")
+
+        // 自定义委托属性 99 不懂怎么用
+
+        // 数据库 ManagedSqliteOpenHelper 找不到 需要org.jetbrains.anko:anko-sqlite..
     }
+
+    @Test
+    fun lesson_06() {
+        val TAG = "lesson_06"
+        // 【依赖注入 Dagger 109】
+
+        // 【集合和函数操作符 111】
+
+        // 总数操作符
+
+        // 1.any 如果至少有一个元素符合给出的判断条件，则返回true
+        val list = listOf(1, 2, 3, 4, 5, 6, 7)
+        assertTrue(list.any() { it % 2 == 0 })
+        assertTrue(list.any { it < 5 })
+        // 2.all 如果全部的元素符合给出的判断条件，则返回true
+        assertTrue(list.all { it < 10 })
+
+        // 3.count 返回符合给出判断条件的元素总数
+        assertEquals(3, list.count { it % 2 == 0 })
+
+        // 4.fold 在一个初始值的基础上从第一项到最后一项通过一个函数累计所有的元素
+        log("total = ${list.fold(1, { r, t -> r + t })}", TAG)
+        log("total = ${list.fold(4) { r, t -> r + t }}", TAG)
+
+        // 5.foldRight 与 fold 一样，但是顺序是从最后一项到第一项
+        log("total = ${list.foldRight(33) { r, t -> r - t }}", TAG)
+        log("total = ${list.foldRight(33) { r, t -> r * t }}", TAG)
+
+        // 6.forEach
+        val result = list.forEach { log("$it", TAG) }
+
+        // 7.forEachIndexed
+        list.forEachIndexed({ index, it -> log("index:$index,value$it", TAG) })
+        list.forEachWithIndex({ index, value2 -> log("index:$index,value2$value2", TAG) })
+
+        // 8.max maxBy maxWith  / min
+        val max = list.max()
+        log("max:$max,", TAG)
+        val maxBy = list.maxBy { value -> -value }
+        log("maxBy:$maxBy,", TAG)
+        val list02 = listOf(1, 2, 3, 111, 222, 333, 4, "2", "000", "7777", "2222", "3")
+        val maxWith = list02.maxWith(kotlin.Comparator() { t1, t2 -> (t1.toString()).compareTo(t2.toString()) })
+        log("maxWith:$maxWith,", TAG)
+
+        // 9.none 如果没有任何元素与给定的函数匹配，则返回true
+        val none = list02.none { it.toString() == "32222" }
+        log("none:$none,", TAG)
+
+        // 10.reduce 与 fold 一样，但是没有一个初始值。通过一个函数从第一项到最后一项进行累计。 reduceRight
+        val reduce = list02.reduce() { t1, t2 -> "$t1-$t2" }
+        val reduce2 = list.reduce { t1, t2 -> t1 + t2 }
+        log("reduce:$reduce,", TAG)
+        log("reduce2:$reduce2,", TAG)
+
+        // 11.sumBy
+        val sumBy = list02.sumBy { it -> Integer.valueOf(it.toString()) * 10 }
+        log("sumBy:$sumBy,", TAG)
+        val sumBy1 = list.sumBy { it * 10 }
+        log("sumBy1:$sumBy1,", TAG)
+
+        // 过滤操作符
+
+        // 1.drop 返回包含去掉前n个元素的所有元素的列表。 dropWhile dropLastWhile 返回根据给定函数从第一项开始去掉指定元素的列表
+        val list3 = listOf(33, 1, 3, 1, 22, 3, 44, 5, 66, 3, 77, 66)
+        val drop = list3.drop(3)
+        log("drop:$drop,", TAG)
+        log("list:$list3,", TAG)
+        log("---------", TAG)
+        val dropWhile = list3.dropWhile { it -> it > 3 }
+        log("dropWhile:$dropWhile,", TAG)
+        log("list:$list3,", TAG)
+        log("---------", TAG)
+        val dropLastWhile = list3.dropLastWhile { a -> a > 3 }
+        log("dropLastWhile:$dropLastWhile,", TAG)
+        log("list:$list3,", TAG)
+
+        // 2. filter 过滤所有符合给定函数条件的元素。 filterNot过滤所有不符合给定函数条件的元素。 filterNotNull 过滤所有元素中不是null的元素。
+        val filter = list02.filter { it -> it.toString().length > 1 }
+        log("filter:$filter,", TAG)
+        val filterNot = list02.filterNot { it -> it.toString().length > 1 }
+        log("filterNot:$filterNot,", TAG)
+        val filterNotNull = list02.filterNotNull()
+        log("filterNotNull:$filterNotNull,", TAG)
+
+        // 3.slice
+        val listOf = listOf(1, 3)
+        val slice = list.slice(listOf)
+        log("slice:$slice,", TAG)
+        val slice1 = list02.slice(listOf)
+        log("slice1:$slice1,", TAG)
+    }
+
+
 }

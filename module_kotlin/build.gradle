@@ -65,6 +65,7 @@ dependencies {
     implementation deps.kotlins.kotlin_stdlib_jre7
     implementation deps.kotlins.test
     implementation deps.kotlins.anko
+    implementation deps.kotlins.anko_sqlite
 
     implementation "com.polidea.rxandroidble2:rxandroidble:1.8.0"
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'

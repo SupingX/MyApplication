@@ -1,8 +1,10 @@
 package com.laputa.zeejp.module_login;
 
 import android.graphics.Color;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.laputa.zeejp.lib_common.http.ApiService;
@@ -131,7 +133,17 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
 //                boolean save = XLoggerUtil.newInstance().save(this, "xxxx/yyyy", "haha.txt", "hello world!!!");
 //                Toast.makeText(this, "保存" + (save ? "成功" : "失败"), Toast.LENGTH_SHORT).show();
 
-                testSchedulers();
+                //testSchedulers();
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Looper.prepare();
+                        Log.i("DEV","dev");
+                        ((TextView)findViewById(R.id.info)).setText("ZEEJ Some times ever,some times never. Some times ever,some times never. Some times ever,some times never. Some times ever,some times never. Some times ever,some times never.");
+                        //Looper.loop();
+                    }
+                }).start();
                 break;
         }
     }
